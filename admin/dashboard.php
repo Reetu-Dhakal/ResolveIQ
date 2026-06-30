@@ -80,7 +80,11 @@ while ($row = $statusResult->fetch_assoc()) {
         $resolved = $row['total'];
     }
 }
-
+$monthly = $conn->query("
+SELECT DATE_FORMAT(created_at, '%M') as month, COUNT(*) as total
+FROM complaints
+GROUP BY MONTH(created_at)
+");
 /*
 |--------------------------------------------------------------------------
 | Recent Complaints
